@@ -107,8 +107,7 @@ class LoginPresentational extends React.Component<LoginProps, LoginState> {
                     floatingLabelText="Email"
                  onChange={this.emailOnChange}
                  value={email}
-                 errorText={
-                     email_error}
+                 errorText={email_error}
                 /><br />
                 <TextField
                     floatingLabelText="Password"
