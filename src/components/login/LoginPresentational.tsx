@@ -16,10 +16,11 @@ interface LoginState {
     stepIndex: number,
     password: string,
     password_error: string,
-    email: string,
-    email_error: string,
-    fontEmailColor: object,
-    fontPasswordColor: object
+    username: string,
+    username_error: string,
+    fontUsernameColor: object,
+    fontPasswordColor: object,
+    filledForms: Array<string>
 }
 
 class LoginPresentational extends React.Component<LoginProps, LoginState> {
@@ -29,34 +30,48 @@ class LoginPresentational extends React.Component<LoginProps, LoginState> {
         this.state = {
             finished: false,
             stepIndex: 0,
+            username: '',
+            username_error: '',
             password: '',
             password_error: '',
-            email: '',
-            email_error: '',
-            fontEmailColor : {
-                color: 'rgba(255, 255, 255, 0.3)'                
-            },
             fontPasswordColor : {
                 color: 'rgba(255, 255, 255, 0.3)'                
             },
+            fontUsernameColor : {
+                color: 'rgba(255, 255, 255, 0.3)'                
+            },
+            filledForms: []
         };
     }
+
+    addFormToFilled = (formName: string) =>{
+        let filledForms: Array<string> = this.state.filledForms.slice();
+        filledForms.push(formName)
+        this.setState({ filledForms: filledForms })        
+    }
+
+    checkIfFormIsFilled = (formName: string) => {
+        return this.state.filledForms.indexOf(formName) > -1;
+    }
     
-    emailOnChange = (event: any) => {
-        const emailError = 'Provide correct email address!';
+    usernameOnChange = (event: any) => {
+        const usernameErrr = 'Provide username';
         event.preventDefault();
-        let emailValue = event.target.value;
-        if(emailValue.length < 1){
-            this.setState({ email_error: emailError });  
-            this.setState({ email: emailValue });
+        let userNameValue = event.target.value;
+        if(userNameValue.length < 1){
+            this.setState({ username_error: usernameErrr });  
+            this.setState({ username: userNameValue });
         }
-        if (emailValue.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
-            this.setState({ email: emailValue });
-            this.setState({ email_error: '', fontEmailColor: {color: 'white'}});
-            this.handleNext();
+        if (userNameValue.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+            this.setState({ username: userNameValue });
+            this.setState({ username_error: '', fontUsernameColor: {color: 'white'}});
+            if(!this.checkIfFormIsFilled('username')){
+                this.addFormToFilled('username');
+                this.handleNext();
+            }
         } else {
-            this.setState({ email: emailValue });
-            this.setState({ email_error: emailError });
+            this.setState({ username: userNameValue });
+            this.setState({ username_error: usernameErrr });
         }
     }
 
@@ -98,16 +113,16 @@ class LoginPresentational extends React.Component<LoginProps, LoginState> {
             color: 'white'
         };
 
-        const { finished, stepIndex, password, password_error, email, email_error, fontEmailColor, fontPasswordColor } = this.state;
+        const { finished, stepIndex, password, password_error, username, username_error, fontUsernameColor, fontPasswordColor } = this.state;
 
         return (<div className="login-container">
             <div className="login-element" >
                 <h2 style={style}>Login</h2>
                 <TextField
-                    floatingLabelText="Email"
-                 onChange={this.emailOnChange}
-                 value={email}
-                 errorText={email_error}
+                    floatingLabelText="Username"
+                 onChange={this.usernameOnChange}
+                 value={username}
+                 errorText={username_error}
                 /><br />
                 <TextField
                     floatingLabelText="Password"
@@ -121,7 +136,7 @@ class LoginPresentational extends React.Component<LoginProps, LoginState> {
                 <div style={{ maxWidth: 180, maxHeight: 400, margin: 'auto' }}>
                     <Stepper activeStep={stepIndex} orientation="vertical">
                         <Step>
-                            <StepLabel style={fontEmailColor}>Email</StepLabel>
+                            <StepLabel style={fontUsernameColor}>Email</StepLabel>
                             <StepContent>
                                 <p>
                                     Provide an email

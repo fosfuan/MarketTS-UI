@@ -1,11 +1,27 @@
 import * as React from 'react';
 import '../../App.css';
+import { TestStore } from '../../store/TestStore';
+import { inject, observer } from 'mobx-react';
 
-const Test: React.StatelessComponent<{}> = () => {
+interface TestProps {
+  store?: TestStore;
+}
+
+@inject('store')
+@observer
+class Test extends React.Component<TestProps, any>{
+  constructor(props: TestProps, context:any) {
+    super(props, context);
+  }
+  render() {
+    const { store } = this.props;
     return (
-      <div className="App">From Test
+      <div>
+        <p>From test</p>
+        {store && store.tekst}
       </div>
     );
-  };
+  }
+}
 
 export default Test;

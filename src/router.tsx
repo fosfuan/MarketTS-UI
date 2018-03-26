@@ -4,6 +4,7 @@ import App  from './App';
 import About  from './components/about/About';
 import Home  from './components/home/Home';
 import Login  from './components/login/LoginPresentational';
+import Test  from './components/test/Test';
 import Register from './components/register/RegistrationPresentational';
 
 // export const AppRouter: React.StatelessComponent<{}> = () => {
@@ -24,5 +25,6 @@ export default (
         <Route path="about" component={About} />
         <Route path="login" component={Login} />
         <Route path="register" component={Register} />
+        <Route path="test" component={Test} />
     </Route>
 );

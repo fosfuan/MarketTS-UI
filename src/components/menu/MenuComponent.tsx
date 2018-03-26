@@ -12,7 +12,7 @@ interface State {
 class MenuComponent extends React.Component<Props, State> {
     
   render() {
-    const menuItem = ['About', 'Home', 'Login', 'Register'];
+    const menuItem = ['About', 'Home', 'Login', 'Register', 'Test'];
     return (
         <div  className="menu-wrapper">
             <div className="menu-container">
