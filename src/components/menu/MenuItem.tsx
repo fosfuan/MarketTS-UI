@@ -3,7 +3,8 @@ import { browserHistory } from 'react-router';
 import '../../App.css';
 
 interface Props {
-  name: string;
+  name: string,
+  items: Array<string>
 }
 
 interface State {
@@ -14,7 +15,7 @@ class MenuItem extends React.Component<Props, State> {
 
     redirectToHomeIfPageNotInItems = () => {
         let itemName = this.props.name;
-        const items =  ['About', 'Login', 'Register', 'Test'];
+        let items = this.props.items;
         if(items.indexOf(itemName) > -1) {            
             browserHistory.push(this.props.name.toLowerCase());
         } else {
