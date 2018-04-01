@@ -168,7 +168,9 @@ class LoginPresentational extends React.Component<LoginProps, LoginState> {
                 </div>)}
             {
                 userStore.isLogged && (
-                    <div> zalogowany</div>
+                    <div> 
+                        <p>zalogowany</p>
+                    </div>
                 )
             }
             {                

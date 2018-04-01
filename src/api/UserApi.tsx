@@ -8,21 +8,31 @@ class UserApi {
 
             req.open('GET', url);
             req.setRequestHeader('Content-type', 'application/json');
+            req.setRequestHeader( 'Access-Control-Allow-Origin', '*');
+            
             if (access_token != undefined) {
                 req.setRequestHeader('Authorization', access_token);
             }
 
-            req.onload = (() => {
-                if (req.status === 200) {
+            req.onload = function () {
+                if (this.status >= 200 && this.status < 300) {
                     resolve(req.response);
                 } else {
-                    reject(Error(req.statusText));
+                    reject({
+                        status: this.status,
+                        statusText: req.statusText,
+                        error: req.response
+                    });
                 }
-            });
+            };
 
-            req.onerror = ((e: ErrorEvent) => {
-                reject(Error(e.message));
-            });
+            req.onerror = function () {
+                reject({
+                    status: this.status,
+                    statusText: req.statusText,
+                    error: req.response
+                });
+            };
 
             req.send();
         });
@@ -40,13 +50,6 @@ class UserApi {
                 req.setRequestHeader('Authorization', access_token);
             }
 
-            // req.onload = function () {
-            //     resolve(req.response);
-            // } // success case
-            // req.onerror = function (error: any) {
-            //     reject(Error(error));
-            // } // failure case
-
             req.onload = function () {
                 if (this.status >= 200 && this.status < 300) {
                     resolve(req.response);
@@ -58,6 +61,7 @@ class UserApi {
                     });
                 }
             };
+            
             req.onerror = function () {
                 reject({
                     status: this.status,

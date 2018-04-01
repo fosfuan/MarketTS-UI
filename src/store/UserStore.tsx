@@ -28,7 +28,8 @@ class UserStore {
      */
     public login(user: UserLogin) {
         UserApi.login(user).then((resp) => {
-            this.user = resp;
+            const {access_token, refresh_token, userName, userId} = resp.credential;
+            this.user = new User(access_token, refresh_token, userName, userId);
             this.isLogged = true;
             this.error = false;
         }).catch((error: any) => {
