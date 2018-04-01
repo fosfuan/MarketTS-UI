@@ -1,14 +1,18 @@
 import * as React from 'react';
 import TextField from 'material-ui/TextField';
 import '../../App.css';
+import { RootStore } from '../../store/RootStore';
+import { inject, observer } from 'mobx-react';
 import {
     Step,
     Stepper,
     StepLabel,
     StepContent,
 } from 'material-ui/Stepper';
+import { UserLogin } from '../../models/UserLogin';
 
 interface LoginProps {
+    store?: RootStore
 }
 
 interface LoginState {
@@ -23,9 +27,11 @@ interface LoginState {
     filledForms: Array<string>
 }
 
+@inject('store')
+@observer
 class LoginPresentational extends React.Component<LoginProps, LoginState> {
 
-    constructor(props: LoginProps, context: any) {
+    constructor(props: LoginProps, context: LoginState) {
         super(props, context);
         this.state = {
             finished: false,
@@ -34,45 +40,42 @@ class LoginPresentational extends React.Component<LoginProps, LoginState> {
             username_error: '',
             password: '',
             password_error: '',
-            fontPasswordColor : {
-                color: 'rgba(255, 255, 255, 0.3)'                
+            fontPasswordColor: {
+                color: 'rgba(255, 255, 255, 0.3)'
             },
-            fontUsernameColor : {
-                color: 'rgba(255, 255, 255, 0.3)'                
+            fontUsernameColor: {
+                color: 'rgba(255, 255, 255, 0.3)'
             },
             filledForms: []
         };
     }
 
-    addFormToFilled = (formName: string) =>{
+    addFormToFilled = (formName: string) => {
         let filledForms: Array<string> = this.state.filledForms.slice();
         filledForms.push(formName)
-        this.setState({ filledForms: filledForms })        
+        this.setState({ filledForms: filledForms })
     }
 
     checkIfFormIsFilled = (formName: string) => {
         return this.state.filledForms.indexOf(formName) > -1;
     }
-    
+
     usernameOnChange = (event: any) => {
         const usernameErrr = 'Provide username';
         event.preventDefault();
         let userNameValue = event.target.value;
-        if(userNameValue.length < 1){
-            this.setState({ username_error: usernameErrr });  
+        if (userNameValue.length < 1) {
+            this.setState({ username_error: usernameErrr });
             this.setState({ username: userNameValue });
         }
-        if (userNameValue.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+        else {
             this.setState({ username: userNameValue });
-            this.setState({ username_error: '', fontUsernameColor: {color: 'white'}});
-            if(!this.checkIfFormIsFilled('username')){
+            this.setState({ username_error: '', fontUsernameColor: { color: 'white' } });
+            if (!this.checkIfFormIsFilled('username')) {
                 this.addFormToFilled('username');
                 this.handleNext();
             }
-        } else {
-            this.setState({ username: userNameValue });
-            this.setState({ username_error: usernameErrr });
-        }
+        } 
     }
 
     passwordOnChange = (event: any) => {
@@ -86,9 +89,15 @@ class LoginPresentational extends React.Component<LoginProps, LoginState> {
         }
         else if (passwordValue.length > 0) {
             this.setState({ password_error: '' });
-            this.setState({ password: passwordValue, fontPasswordColor: {color: 'white'}});
+            this.setState({ password: passwordValue, fontPasswordColor: { color: 'white' } });
             this.handleNext();
         }
+    }
+
+    submit = (event: any) => {
+        let user: UserLogin = new UserLogin(this.state.username, this.state.password);
+
+        this.props.store!.userStore.login(user);
     }
 
     handleNext = () => {
@@ -113,6 +122,7 @@ class LoginPresentational extends React.Component<LoginProps, LoginState> {
             color: 'white'
         };
 
+        const { userStore } = this.props.store!;
         const { finished, stepIndex, password, password_error, username, username_error, fontUsernameColor, fontPasswordColor } = this.state;
 
         return (<div className="login-container">
@@ -120,26 +130,26 @@ class LoginPresentational extends React.Component<LoginProps, LoginState> {
                 <h2 style={style}>Login</h2>
                 <TextField
                     floatingLabelText="Username"
-                 onChange={this.usernameOnChange}
-                 value={username}
-                 errorText={username_error}
+                    onChange={this.usernameOnChange}
+                    value={username}
+                    errorText={username_error}
                 /><br />
                 <TextField
                     floatingLabelText="Password"
                     type="password"
-                 onChange={this.passwordOnChange}
-                 value={password}
-                 errorText={password_error}
+                    onChange={this.passwordOnChange}
+                    value={password}
+                    errorText={password_error}
                 /><br />
             </div>
             <div className="login-element login-stepper">
                 <div style={{ maxWidth: 180, maxHeight: 400, margin: 'auto' }}>
                     <Stepper activeStep={stepIndex} orientation="vertical">
                         <Step>
-                            <StepLabel style={fontUsernameColor}>Email</StepLabel>
+                            <StepLabel style={fontUsernameColor}>Username</StepLabel>
                             <StepContent>
                                 <p>
-                                    Provide an email
+                                    Provide an username
                                 </p>
                             </StepContent>
                         </Step>
@@ -154,8 +164,18 @@ class LoginPresentational extends React.Component<LoginProps, LoginState> {
             </div>
             {finished && (
                 <div className="menu-element centered-button" >
-                    <div>Login</div>
+                    <div onClick={this.submit}>Login</div>
                 </div>)}
+            {
+                userStore.isLogged && (
+                    <div> zalogowany</div>
+                )
+            }
+            {                
+                userStore.error && (
+                    <div> {userStore.errorMessage}</div>
+                )
+            }
         </div>
         );
     }

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import '../../App.css';
-import { TestStore } from '../../store/TestStore';
+import { RootStore } from '../../store/RootStore';
 import { inject, observer } from 'mobx-react';
 
 interface TestProps {
-  store?: TestStore;
+  store?: RootStore
 }
 
 @inject('store')
@@ -14,11 +14,11 @@ class Test extends React.Component<TestProps, any>{
     super(props, context);
   }
   render() {
-    const { store } = this.props;
+    const { testStore } = this.props.store!;
     return (
       <div>
         <p>From test</p>
-        {store && store.tekst}
+        {testStore && testStore.tekst}
       </div>
     );
   }

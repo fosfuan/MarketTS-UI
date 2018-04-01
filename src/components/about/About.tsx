@@ -1,44 +1,42 @@
 import * as React from 'react';
 import '../../App.css';
-import { TestStore } from '../../store/TestStore';
+import { RootStore } from '../../store/RootStore';
 import { inject, observer } from 'mobx-react';
 import TextField from 'material-ui/TextField';
 
 interface AboutProps {
-  store?: TestStore;
+  store?: RootStore
 }
 
-interface AboutState{
+interface AboutState {
   printedText: string
 }
 
 @inject('store')
 @observer
 class About extends React.Component<AboutProps, AboutState>{
-  constructor(props: AboutProps, context:AboutState) {
+  constructor(props: AboutProps, context: AboutState) {
     super(props, context);
     this.state = {
       printedText: ''
     }
   }
 
-  onChange = (event: any) =>{
+  onChange = (event: any) => {
     event.preventDefault();
-    
+
     let inputValue: string = event.target.value;
-    this.setState({ printedText: inputValue});
+    this.setState({ printedText: inputValue });
   }
 
   setTestTekst = () => {
     let inputValue: string = this.state.printedText;
-    if(this.props.store){
-      this.props.store.setTekst(inputValue);
-    }
+    this.props.store!.testStore.setTekst(inputValue);
   }
 
   render() {
-    const { store } = this.props;
-    const {printedText} = this.state;
+    const { testStore } = this.props.store!;
+    const { printedText } = this.state;
     return (
       <div>
         <TextField
@@ -48,7 +46,7 @@ class About extends React.Component<AboutProps, AboutState>{
         /><br />
         <button onClick={this.setTestTekst}>Kliknij</button>
 
-        {store && store.tekst}
+        {testStore && testStore.tekst}
       </div>
     );
   }
