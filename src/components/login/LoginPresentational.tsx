@@ -174,7 +174,7 @@ class LoginPresentational extends React.Component<LoginProps, LoginState> {
                 )
             }
             {                
-                userStore.error && (
+                userStore.loginError && (
                     <div> {userStore.errorMessage}</div>
                 )
             }

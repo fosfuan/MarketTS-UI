@@ -52,11 +52,4 @@ class About extends React.Component<AboutProps, AboutState>{
   }
 }
 
-// const About: React.StatelessComponent<{}> = () => {
-//     return (
-//       <div className="App">From about
-//       </div>
-//     );
-// };
-
 export default About;
