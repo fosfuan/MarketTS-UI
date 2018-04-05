@@ -10,12 +10,12 @@ class UserStore {
     // constructor(rootStore:RootStore) {
     //   this.rootStore = rootStore
     // }
+    constructor(){
+        this.user = new User("", "", "", 0, false);
+    }
 
     @observable
     public user: User;
-
-    @observable
-    public isLogged: boolean = false;
 
     @observable
     public loginError: boolean = false;
@@ -42,8 +42,8 @@ class UserStore {
     public login(user: UserLogin) {
         UserApi.login(user).then((resp) => {
             const {access_token, refresh_token, userName, userId} = resp;
-            this.user = new User(access_token, refresh_token, userName, userId);
-            this.isLogged = true;
+            this.user = new User(access_token, refresh_token, userName, userId, true);
+            localStorage.setItem("user", JSON.stringify(this.user));
             this.loginError = false;
         }).catch((error: any) => {
             console.log(error);
@@ -51,7 +51,10 @@ class UserStore {
             this.errorMessage = JSON.parse(error.error);
         });
     }
-
+    @action
+    /**
+     * register
+     */
     public register(user: UserRegister){
         UserApi.register(user).then((resp) => {
             this.registerError = false;
@@ -64,6 +67,14 @@ class UserStore {
             this.registerErrorMessage = JSON.parse(error.error);
             this.registerSuccess = false;
         });        
+    }
+    @action
+    /**
+     * logout
+     */
+    public logout(){
+        this.user = new User("", "", "", 0, false);
+        localStorage.removeItem("user");
     }
 }
 

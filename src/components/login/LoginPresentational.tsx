@@ -10,6 +10,7 @@ import {
     StepContent,
 } from 'material-ui/Stepper';
 import { UserLogin } from '../../models/UserLogin';
+import { browserHistory } from 'react-router';
 
 interface LoginProps {
     store?: RootStore
@@ -96,6 +97,8 @@ class LoginPresentational extends React.Component<LoginProps, LoginState> {
 
     submit = (event: any) => {
         let user: UserLogin = new UserLogin(this.state.username, this.state.password);
+        this.setState({ password: "" });
+        this.setState({ username: "" });
 
         this.props.store!.userStore.login(user);
     }
@@ -167,10 +170,8 @@ class LoginPresentational extends React.Component<LoginProps, LoginState> {
                     <div onClick={this.submit}>Login</div>
                 </div>)}
             {
-                userStore.isLogged && (
-                    <div> 
-                        <p>zalogowany</p>
-                    </div>
+                userStore.user.isLogged && (    
+                    browserHistory.push("home")
                 )
             }
             {                

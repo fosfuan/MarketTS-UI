@@ -7,7 +7,13 @@ import { Router, browserHistory } from 'react-router';
 import { Provider } from 'mobx-react';
 import { RootStore } from './store/RootStore';
 
+
+
 const store = new RootStore();
+
+if(localStorage.user){
+  store.userStore.user = JSON.parse(localStorage.user);
+}
 
 ReactDOM.render(
   <Provider store={store}>

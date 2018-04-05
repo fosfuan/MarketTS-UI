@@ -1,35 +1,37 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
 import '../../App.css';
+import { inject, observer } from 'mobx-react';
 
 interface Props {
-  name: string,
-  items: Array<string>
+    name: string,
+    isDisplay: boolean;
+    clickFunction?: () => void;
 }
 
 interface State {
 
 }
 
+@inject('store')
+@observer
 class MenuItem extends React.Component<Props, State> {
 
-    redirectToHomeIfPageNotInItems = () => {
-        let itemName = this.props.name;
-        let items = this.props.items;
-        if(items.indexOf(itemName) > -1) {            
-            browserHistory.push(this.props.name.toLowerCase());
-        } else {
-            browserHistory.push('/');
-        }
+    redirectTo = () => {
+        browserHistory.push(this.props.name.toLowerCase());
     }
 
-  render() {
-    return (
-        <div className="menu-element" onClick={this.redirectToHomeIfPageNotInItems}>
-            <div>{this.props.name}</div>
-        </div>
-    );
-  }
+    render() {
+        const { isDisplay, clickFunction, name } = this.props;
+        return (
+            <div>
+            {isDisplay && (
+                <div className="menu-element" onClick={clickFunction} >
+                    <div>{name}</div>
+                </div>)}
+            </div>
+        );
+    }
 }
 
 export default MenuItem;
