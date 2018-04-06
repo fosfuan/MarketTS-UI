@@ -78,7 +78,7 @@ class MenuComponent extends React.Component<Props, State> {
             <div className="menu-container">
                 <div className="left">
                     <CustomMenuItem name={"About"} isDisplay={true} clickFunction={this.redirectTo.bind(this, "about")} />
-                    <CustomMenuItem name={"Home"} isDisplay={true} clickFunction={this.redirectTo.bind(this, "home")} />
+                    <CustomMenuItem name={"Home"} isDisplay={true} clickFunction={this.redirectTo.bind(this, "/")} />
                 </div>
                 <div className="middle">
                     <AutoComplete
