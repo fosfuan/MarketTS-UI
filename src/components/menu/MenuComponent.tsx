@@ -25,7 +25,7 @@ class MenuComponent extends React.Component<Props, State> {
     // logout(){
     //     this.props.store!.userStore.logout();
     // }
-    
+
     redirectTo = (name: string) => {
         browserHistory.push(name);
     }
@@ -33,14 +33,20 @@ class MenuComponent extends React.Component<Props, State> {
     render() {
         const { userStore } = this.props.store!;
         return (
-            <div className="menu-wrapper">
-                <div className="menu-container">
-                    <MenuItem name={"About"} isDisplay={true} clickFunction={this.redirectTo.bind(this, "about")}/>
-                    <MenuItem name={"Home"} isDisplay={true} clickFunction={this.redirectTo.bind(this, "home")}/>
-                    <MenuItem name={"Login"} isDisplay={!userStore.user.isLogged} clickFunction={this.redirectTo.bind(this, "login")}/>
-                    <MenuItemLogout name={"Logout"} isDisplay={userStore.user.isLogged} />
-                    <MenuItem name={"Register"} isDisplay={true} clickFunction={this.redirectTo.bind(this, "register")}/>
+            <div className="menu-container">
+                <div className="left">
+                    <MenuItem name={"About"} isDisplay={true} clickFunction={this.redirectTo.bind(this, "about")} />
+                    <MenuItem name={"Home"} isDisplay={true} clickFunction={this.redirectTo.bind(this, "home")} />
                 </div>
+                <div className="middle">
+                </div>
+
+                <div className="right">
+                    <MenuItem name={"Register"} isDisplay={true} clickFunction={this.redirectTo.bind(this, "register")} />
+                    <MenuItem name={"Login"} isDisplay={!userStore.user.isLogged} clickFunction={this.redirectTo.bind(this, "login")} />
+                    <MenuItemLogout name={"Logout"} isDisplay={userStore.user.isLogged} />
+                </div>
+
             </div>
         );
     }
