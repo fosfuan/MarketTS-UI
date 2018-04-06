@@ -17,9 +17,8 @@ body{
   justify-content: flex-end;
   align-items: baseline;   
   margin: auto;
-  height: 70px;
   background-color: #1f2225;
-  margin: 0px 0px 20px 0px;
+  margin: -10px 0px 20px 0px;
 }
 
 .left{
@@ -39,7 +38,9 @@ body{
 .right{
   display: flex;
   order: 3;
+  flex: 2 0 0;
   margin-right: 20px;
+  justify-content: flex-end;
 }
 
 
@@ -58,6 +59,7 @@ body{
   border-radius: 10px;
   transition: background-color 0.7s;
 }
+
 
 .menu-element:hover{
   background-color: #454d55;
