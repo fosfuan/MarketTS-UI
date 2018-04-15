@@ -4,6 +4,7 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MenuComponent from './components/menu/MenuComponent';
+import HeaderContainer from './components/header/HeaderContainer';
 
 interface Props {
   children: React.ReactNode;
@@ -17,6 +18,9 @@ export class App extends React.Component<Props, State> {
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <div className="main-header-container">
+            <HeaderContainer />
+        </div>
         <div className="container-fluid">
           <div>
             <MenuComponent />
