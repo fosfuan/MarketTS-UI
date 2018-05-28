@@ -118,14 +118,14 @@ body{
 
 
 .footer {
-  position: fixed;
+  position: relative;
   left: 0;
   bottom: 0;
   width: 100%;
   background-color: #131416;
   color: white;
   text-align: center;
-  min-height: 50px;
+  min-height: 100px;
 }
 
 .header-container{
@@ -167,4 +167,8 @@ body{
   font-size: 1.4em;
   text-align: center;
   border-left: 1px solid white;
+}
+
+.content-for-footer{
+  min-height: calc(100vh - 70px);  
 }
