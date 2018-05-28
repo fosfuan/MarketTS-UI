@@ -7,6 +7,7 @@ import Login  from './components/login/LoginPresentational';
 import Register from './components/register/RegistrationPresentational';
 import Coin from './components/coin/CoinPresentational';
 import Market from './components/market/Market';
+import Currency from './components/currency/Currency';
 
 // export const AppRouter: React.StatelessComponent<{}> = () => {
 //   return (
@@ -28,5 +29,6 @@ export default (
         <Route path="register" component={Register} />
         <Route path="coin" component={Coin} />
         <Route path="market" component={Market} />
+        <Route path="currency/:id" component={Currency} />
     </Route>
 );

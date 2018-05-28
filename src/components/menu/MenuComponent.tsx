@@ -42,12 +42,13 @@ class MenuComponent extends React.Component<Props, State> {
 
         if (choosenInput.text !== undefined) {
             this.props.store!.testStore.setTekst(choosenInput.text);
+            browserHistory.push("/currency/" + choosenInput.text);
         }
         else {
             this.props.store!.testStore.setTekst(choosenInput);
+            browserHistory.push("/currency/" + choosenInput);
         }
         
-        browserHistory.push("/coin");
     }
 
     render() {
