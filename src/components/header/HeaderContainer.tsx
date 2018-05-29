@@ -31,7 +31,7 @@ class HeaderContainer extends React.Component<any, State>{
       <div className="header-container">
       {
           coinsValues.map((coin: Coin)=>{
-              return <HeaderItem coin={coin} />
+              return <HeaderItem coin={coin} key={coin.coinId}/>
           })
       }
       </div>

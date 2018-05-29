@@ -2,13 +2,13 @@ class Coin {
     public coinId: number;
     public name: string;
     public symbol: string;
-    public price_USD: number;
-    public price_BTC: number;
-    public volume_24_USD: number;
-    public change_1H: number;
-    public change_24H: number;
-    public change_1W: number;
-    public updated_time: string;
+    public priceUsd: number;
+    public priceBtc: number;
+    public volume24Usd: number;
+    public change1h: number;
+    public change24h: number;
+    public change1w: number;
+    public updatedTime: string;
 
     public constructor(coinid: number, name: string, symbol: string,
         priceUsd: number, priceBtc: number, volume24: number,
@@ -17,13 +17,13 @@ class Coin {
         this.coinId = coinid;
         this.name = name;
         this.symbol = symbol;
-        this.price_USD = priceUsd;
-        this.price_BTC = priceBtc;
-        this.volume_24_USD = volume24;
-        this.change_1H = change1H;
-        this.change_24H = change24H,
-        this.change_1W = change_1W;
-        this.updated_time = updated_time;
+        this.priceUsd = priceUsd;
+        this.priceBtc = priceBtc;
+        this.volume24Usd = volume24;
+        this.change1h = change1H;
+        this.change24h = change24H,
+        this.change1w = change_1W;
+        this.updatedTime = updated_time;
     }
 
 }

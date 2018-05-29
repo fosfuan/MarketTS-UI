@@ -172,3 +172,21 @@ body{
 .content-for-footer{
   min-height: calc(100vh - 70px);  
 }
+
+.pagination-number{
+  padding: 5px;
+  margin: 5px;
+  display: inline;
+}
+
+.selected-page{
+  background-color: rgb(0.23, 1, 0.32, 1) !important;
+}
+
+.paginator-center{
+  text-align: center;
+}
+
+.main-market-table{
+  margin-bottom: 20px;
+}
