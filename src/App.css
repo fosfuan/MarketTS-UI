@@ -174,19 +174,72 @@ body{
 }
 
 .pagination-number{
-  padding: 5px;
-  margin: 5px;
+  padding: 15px 25px 15px 25px;
+  margin: 15px;
   display: inline;
+  background-color:  rgb(59, 179, 228);
+  transition: 0s background-color;
+  border-radius: 25px;
+}
+.pagination-number:hover{
+  background-color:  rgba(28, 228, 151, 0.781); 
+  transition-duration: 1s;
 }
 
 .selected-page{
-  background-color: rgb(0.23, 1, 0.32, 1) !important;
+  background-color: rgba(28, 228, 151, 0.781) !important;
 }
 
 .paginator-center{
   text-align: center;
+  margin: 30px 0 30px 0;
 }
 
 .main-market-table{
   margin-bottom: 20px;
+}
+
+
+table{
+  text-align: center;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  background-color: rgb(59, 179, 228);
+  color:#555555;
+}
+
+table > thead{
+  background-color: rgb(59, 179, 228);
+  border-radius: 10px;
+}
+
+table > tbody > tr{
+  transition: 0s background-color;
+}
+table > tbody > tr:hover > td{
+  background-color: rgba(17, 16, 16, 0.26); 
+  transition-duration: 1s;
+}
+
+table > thead > tr > th {
+  margin: 20px 10px 20px 10px;
+  padding: 10px 20px 10px 20px;
+  color: white;
+}
+
+table > tbody > tr:nth-child(odd){
+  margin: 20px 10px 20px 10px;
+  padding: 10px;
+  background-color: #f5f5f5;
+}
+
+table > tbody > tr:nth-child(even){
+  margin: 20px 10px 20px 10px;
+  padding: 10px;
+  background-color: rgb(218, 216, 216);
+}
+
+table > tbody > tr > td {
+  margin: 20px 10px 20px 10px;
+  padding: 10px;
 }

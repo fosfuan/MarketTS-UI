@@ -72,7 +72,8 @@ export class Market extends React.Component<Props, State> {
         const { coinsValues } = this.state;
         let errorMsg = this.state.apiError.Error != "" ? JSON.parse(this.state.apiError.Error).Skip[0] : "";
         return (
-            <div ref="myRef" className="App">{
+            <div ref="myRef" className="App">
+            {
                 errorMsg != "" && coinsValues.length > 0 ? (<p>{errorMsg}</p>) :
                     (
                         <div className="main-market-table">
@@ -86,11 +87,11 @@ export class Market extends React.Component<Props, State> {
                             Array.from({ length: this.state.numberOfPages }, (v, k) => k).map((value) => {
                                 if (value === this.state.currentPage) {
                                     return (
-                                        <TablePagination pageNumber={value} pagination={((e) => this.makePagination(e, value))} isSelectedPage={true} />
+                                        <TablePagination key={value} pageNumber={value} pagination={((e) => this.makePagination(e, value))} isSelectedPage={true} />
                                     )
                                 } else {
                                     return (
-                                        <TablePagination pageNumber={value} pagination={((e) => this.makePagination(e, value))} isSelectedPage={false} />
+                                        <TablePagination key={value} pageNumber={value} pagination={((e) => this.makePagination(e, value))} isSelectedPage={false} />
                                     )
                                 }
                                 // <div className="App" onClick={((e) => this.makePagination(e, value))}>

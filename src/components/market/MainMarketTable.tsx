@@ -1,15 +1,17 @@
 import * as React from 'react';
 import '../../App.css';
 import { Coin } from '../../models/Coin';
-import Table from 'material-ui/Table';
-import TableBody from 'material-ui/Table/TableBody';
-import TableCell from 'material-ui/Table/TableRowColumn';
-import TableHead from 'material-ui/Table/TableHeader';
-import TableRow from 'material-ui/Table/TableRow';
-import Paper from 'material-ui/Paper';
+// import Table from 'material-ui/Table';
+// import TableBody from 'material-ui/Table/TableBody';
+// import TableCell from 'material-ui/Table/TableRowColumn';
+// import TableHead from 'material-ui/Table/TableHeader';
+// import TableRow from 'material-ui/Table/TableRow';
+//import Paper from 'material-ui/Paper';
+import { browserHistory } from 'react-router';
+//import 'bootstrap/dist/css/bootstrap.css';
 
 interface Props {
-    ListOfCoins: Array<Coin>;
+  ListOfCoins: Array<Coin>;
 }
 
 interface State {
@@ -28,43 +30,51 @@ interface State {
 //   });
 
 export class MainMarketTable extends React.Component<Props, State> {
-    render() {
-        const {ListOfCoins} = this.props;
-        return (
-            <Paper>
-              <Table>
-                <TableHead adjustForCheckbox={false} displaySelectAll={false}>
-                  <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Symbol</TableCell>
-                    <TableCell>BTC Price</TableCell>
-                    <TableCell>USD Price</TableCell>
-                    <TableCell>1 hour change</TableCell>
-                    <TableCell>24 hour change</TableCell>
-                    <TableCell>1 week change</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody displayRowCheckbox={false}>
-                  {ListOfCoins.map(n => {
-                    return (
-                      <TableRow key={n.coinId}>
-                        <TableCell>
-                          {n.name}
-                        </TableCell>
-                        <TableCell>{n.symbol}</TableCell>
-                        <TableCell>{n.priceBtc}</TableCell>
-                        <TableCell>{n.priceUsd}</TableCell>
-                        <TableCell>{n.change1h}</TableCell>
-                        <TableCell>{n.change24h}</TableCell>
-                        <TableCell>{n.change1w}</TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </Paper>
-        );
-    }
+  constructor(props: Props, context: State) {
+    super(props, context);
+
+    this.onClickRedirectToCurrencyDetails = this.onClickRedirectToCurrencyDetails.bind(this);
+  }
+  onClickRedirectToCurrencyDetails(coin: Coin, event: any): void {
+    event.preventDefault();
+    browserHistory.push("/currency/" + coin.coinId);
+  }
+
+  render() {
+    const { ListOfCoins } = this.props;
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Symbol</th>
+            <th>BTC Price</th>
+            <th>USD Price</th>
+            <th>1 hour change</th>
+            <th>24 hour change</th>
+            <th>1 week change</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ListOfCoins.map(n => {
+            return (
+              <tr className="main-table-tr" key={n.coinId} onClick={((e) => this.onClickRedirectToCurrencyDetails(n, e))}>
+                <td>{n.name}</td>
+                <td>{n.symbol}</td>
+                <td>{n.priceBtc}</td>
+                <td>{n.priceUsd}</td>
+                <td>{n.change1h}</td>
+                <td>{n.change24h}</td>
+                <td>{n.change1w}</td>
+                <td>Details</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    );
+  }
 }
 
 export default MainMarketTable;
