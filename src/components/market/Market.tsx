@@ -13,7 +13,7 @@ interface Props {
 }
 
 interface State {
-    coinsValues: Array<Coin>;
+    coinsValues: Array<Coin>,
     apiError: ApiError,
     displayedItem: number,
     currentPage: number,

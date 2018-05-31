@@ -1,8 +1,8 @@
 const WEB_API: string = "http://localhost:51147/";
 
 class BaseApi {
-    get<T>(url: string, access_token?: string) {
-        return new Promise<T>((resolve: any, reject: any) => {
+    get(url: string, access_token?: string) {
+        return new Promise((resolve: any, reject: any) => {
             var req = new XMLHttpRequest();
 
             req.open('GET',  WEB_API +  url);

@@ -37,7 +37,7 @@ export class MainMarketTable extends React.Component<Props, State> {
   }
   onClickRedirectToCurrencyDetails(coin: Coin, event: any): void {
     event.preventDefault();
-    browserHistory.push("/currency/" + coin.coinId);
+    browserHistory.push("/currency/" + coin.symbol);
   }
 
   render() {

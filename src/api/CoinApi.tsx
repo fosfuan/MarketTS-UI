@@ -8,6 +8,13 @@ class CoinApi extends BaseApi {
         
         return this.change('POST', url, takeSkip).then(JSON.parse); 
     }
+
+    getListOfHistoryCoinBySymbolName(symbolName: string){
+        var url = 'api/coins/history/' + symbolName;
+
+        return this.get(url).then(JSON.parse);
+    }
+
 }
 
 export default new CoinApi();

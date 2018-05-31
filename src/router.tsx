@@ -29,6 +29,6 @@ export default (
         <Route path="register" component={Register} />
         <Route path="coin" component={Coin} />
         <Route path="market" component={Market} />
-        <Route path="currency/:id" component={Currency} />
+        <Route path="currency/:name" component={Currency} />
     </Route>
 );
